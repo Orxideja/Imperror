@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from discord import abc
 import requests
-from config import 
+from config import settings
 import akinator
 from akinator.async_aki import Akinator
 import time
