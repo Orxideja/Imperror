@@ -1,6 +1,5 @@
 discord.py
 requests
-akinator
 websockets
 aiohttp
 chardet
