@@ -72,32 +72,6 @@ async def clear(ctx, num):
     await ctx.send(embed=embed)
 
 
-@bot.command(help='игра с Акинатором (в разработке)')
-async def akinator(ctx):
-    aki = Akinator()
-    q = await (aki.start_game(language='ru'))
-    await ctx.send(aki.question)
-    while aki.progression <= 80:
-        a = input(q + "\n\t")
-        if a == "b":
-            try:
-                q = await aki.back()
-            except akinator.CantGoBackAnyFurther:
-                pass
-        else:
-            q = await aki.answer(a)
-            await ctx.send(aki.question)
-    await aki.win()
-
-    correct = input(f"It's {aki.first_guess['name']} ({aki.first_guess['description']})! Was I correct?\n{aki.first_guess['absolute_picture_path']}\n\t")
-    embed = correct
-    await ctx.send(embed=embed)
-    if correct.lower() == "yes" or correct.lower() == "y":
-        print("Yay\n")
-    else:
-        print("Oof\n")
-
-
 @bot.command()
 @commands.has_permissions(administrator=True)
 async def chnick(ctx, member: discord.Member, nick1='', nick2='', nick3='', nick4='', nick5='', nick6=''):
