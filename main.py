@@ -2,12 +2,17 @@ import discord
 from discord.ext import commands
 from discord import abc
 import requests
-from config import settings
 import akinator
 from akinator.async_aki import Akinator
 import time
 import asyncio
 
+settings = {
+    'token': 'NzY5ODI5NTQ3MTU5MzIyNjI0.X5Utog.mm5XGJwji1soK34uenO9R6IMxy4',
+    'bot': 'Гейша Императора',
+    'id': 769829547159322624,
+    'prefix': '%'
+}
 bot = commands.Bot(command_prefix=settings['prefix']) # Так как мы указали префикс в settings, обращаемся к словарю с ключом prefix.
 
 
