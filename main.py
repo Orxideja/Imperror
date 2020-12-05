@@ -97,6 +97,17 @@ async def on_command_error(ctx, error):
         return
 
 
+@bot.command(help='create-channel')
+async def create_channel(ctx):
+    guild = ctx.guild
+    author = ctx.message.author
+    channel_name = author+'s торги'
+    existing_channel = discord.utils.get(guild.channels, name=channel_name)
+    if not existing_channel:
+        embed = discord.Embed(color=0x5B3375, description=f'Creating a new channel: {channel_name}')
+        await ctx.send(embed=embed)
+        await guild.create_text_channel(channel_name)
+
 # Voice mute and unmute
 @bot.command()
 @commands.has_permissions(administrator=True)
@@ -126,6 +137,8 @@ async def mutec(ctx, member: discord.Member):
     await member.add_roles(mute_role)
     await member.edit(deafen=True)
     await ctx.send(f'{member.mention} получил мут за плохое поведение!')
+
+
 
 
 @bot.command()
