@@ -3,6 +3,8 @@ import discord
 from discord.ext import commands
 from discord import abc
 import requests
+import random
+import aiohttp
 from discord.utils import get
 import akinator
 from akinator.async_aki import Akinator
@@ -43,11 +45,44 @@ async def hello(ctx):  # Создаём функцию и передаём ар�
 @bot.command(help='Команда поздравления') # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
 async def padoru(ctx):  # Создаём функцию и передаём аргумент ctx.
     author = ctx.message.author  # Объявляем переменную author и записываем туда информацию об авторе.
-    image = requests.get('https://media.discordapp.net/attachments/738296780009111583/783760232253489172/1575476244_388.gif')
-    text = random.choice([f'С наступающим новым годом, {author.mention}!', f'Уютного декабря и праздничного настроения, {author.mention}!',f'Побольше снега и гирлянд тебе, {author.mention}'])
-    embed = discord.Embed(color=0x5B3375, description=text, image=image)
+    gifs = ['https://tenor.com/view/padoru-merry-christmas-gif-12945582',
+          'https://media.discordapp.net/attachments/738296780009111583/783760232253489172/1575476244_388.gif',
+          'https://tenor.com/view/meme-padoru-christmas-joke-anime-gif-16368098',
+          'https://tenor.com/view/padoru-merry-christmas-gif-12945572',
+          'https://tenor.com/view/padoru-padoru-anime-run-fate-series-saber-nero-gif-15979862',
+          'https://tenor.com/view/nero-gif-19251166']
+    text = [f'С наступающим новым годом, {author.mention}!',
+            f'Уютного декабря и праздничного настроения, {author.mention}!',
+            f'Побольше снега и гирлянд тебе, {author.mention}']
+    embed = discord.Embed(color=0x5B3375, description=random.choice(text))
+    embed.set_image(url=random.choice(gifs))
     await ctx.send(embed=embed)
 
+
+# @bot.command(aliases=["8ball"])
+# async def шар(ctx, *, question):
+#     responses = ["might be",
+#                  "yes",
+#                  "i point to yes",
+#                  "i think so",
+#                  "maybe ¯\_(ツ)_/¯ ",
+#                  "very lazy ask later",
+#                  "zzzzzzzzzzzzz",
+#                  "wait what?",
+#                  "no",
+#                  "WHO AM I TO YOU?!",
+#                  "CREEPER!",
+#                  "idk",
+#                  "¯\_(ツ)_/¯",
+#                  "doge  'aka:yes'",
+#                  "i dont think so",
+#                  "idgi",
+#                  "nope",
+#                  "doubtfull",
+#                  "more likely",
+#                  "play minecraft"
+#                  ]
+#     await ctx.send(f"{question}+\n + {random.choice(responses)}")
 
 @bot.command(help='Команда поиска картинки по слову')
 async def pic(ctx, keyword):
@@ -60,7 +95,7 @@ async def pic(ctx, keyword):
 
 
 @bot.command(help='Команда поиска рандомной картинки')
-async def random(ctx):
+async def randompic(ctx):
     author = ctx.message.author
     await ctx.send(f'{author.mention}, ищу картиночку, ожидайте...', delete_after=3)
     response = requests.get('https://source.unsplash.com/1600x900/')  # Get-запрос
