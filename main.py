@@ -22,7 +22,7 @@ async def on_ready():
         game = discord.Game("Genshin Impact")
         await bot.change_presence(status=discord.Status.idle, activity=game)
 
-        
+@bot.event
 async def on_message(message):
     if message.content.find(':EmojiName:'):
         for x in bot.get_all_emojis():
