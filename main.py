@@ -4,12 +4,7 @@ from discord.ext import commands
 from discord import abc
 import requests
 import random
-import aiohttp
-from discord.utils import get
-import akinator
-from akinator.async_aki import Akinator
-import time
-import asyncio
+import datetime
 
 settings = {
     'bot': 'Гейша Императора',
@@ -19,6 +14,13 @@ settings = {
 bot = commands.Bot(command_prefix=settings['prefix']) # Так как мы указали префикс в settings, обращаемся к словарю с ключом prefix.
 TOKEN = os.getenv('TOKEN')
 
+
+def timeNY(self):
+    now = datetime.datetime.today()
+    NY = datetime.datetime(2020, 1, 1)
+    d = NY - now  # str(d)  '83 days, 2:43:10.517807'
+    mm, ss = divmod(d.seconds, 60)
+    hh, mm = divmod(mm, 60)
 
 @bot.event  #  Играет в...
 async def on_ready():
@@ -45,16 +47,17 @@ async def hello(ctx):  # Создаём функцию и передаём ар�
 @bot.command(help='Команда поздравления') # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
 async def padoru(ctx):  # Создаём функцию и передаём аргумент ctx.
     author = ctx.message.author  # Объявляем переменную author и записываем туда информацию об авторе.
-    gifs = ['https://tenor.com/view/padoru-merry-christmas-gif-12945582.gif',
+    gifs = ['https://cdn.discordapp.com/attachments/770262193949507656/785175895891247124/tenor_1.gif',
           'https://media.discordapp.net/attachments/738296780009111583/783760232253489172/1575476244_388.gif',
-          'https://tenor.com/view/meme-padoru-christmas-joke-anime-gif-16368098.gif',
-          'https://tenor.com/view/padoru-merry-christmas-gif-12945572.gif',
-          'https://tenor.com/view/padoru-padoru-anime-run-fate-series-saber-nero-gif-15979862.gif',
-          'https://tenor.com/view/nero-gif-19251166.gif']
+          'https://cdn.discordapp.com/attachments/770262193949507656/785176103119224882/tenor_2.gif',
+          'https://cdn.discordapp.com/attachments/770262193949507656/785176219813281853/tenor_3.gif',
+          'https://cdn.discordapp.com/attachments/770262193949507656/785176367942729779/tenor_4.gif',
+          'https://cdn.discordapp.com/attachments/770262193949507656/785176521702375473/tenor_5.gif']
+    days = timeNY()
     text = [f'С наступающим новым годом, {author.mention}!',
             f'Уютного декабря и праздничного настроения, {author.mention}!',
             f'Побольше снега и гирлянд тебе, {author.mention}']
-    embed = discord.Embed(color=0x5B3375, description=random.choice(text))
+    embed = discord.Embed(color=0x5B3375, description=random.choice(text) + f' {days} days until Padoru')
     embed.set_image(url=random.choice(gifs))
     await ctx.send(embed=embed)
 
