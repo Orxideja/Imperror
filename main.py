@@ -15,18 +15,31 @@ bot = commands.Bot(command_prefix=settings['prefix']) # Так как мы ук�
 TOKEN = os.getenv('TOKEN')
 
 
-def timeNY(self):
+def timeNY():
     now = datetime.datetime.today()
-    NY = datetime.datetime(2020, 1, 1)
+    NY = datetime.datetime(2021, 1, 1)
     d = NY - now  # str(d)  '83 days, 2:43:10.517807'
     mm, ss = divmod(d.seconds, 60)
     hh, mm = divmod(mm, 60)
+    return ('{} дней {} часа {} мин {} сек.'.format(d.days, hh, mm, ss))
 
 @bot.event  #  Играет в...
 async def on_ready():
     while True:
         game = discord.Game("PADORU PADORU")
         await bot.change_presence(status=discord.Status.idle, activity=game)
+
+
+# @bot.event
+# async def on_command_error(ctx, error):
+#     author = ctx.message.author
+#     # if command has local error handler, return
+#     if hasattr(ctx.command, 'on_error'):
+#         return
+#     if isinstance(error, commands.MissingPermissions):
+#         embed = discord.Embed(color=0x5B3375, description=f'{author.mention}, у тебя нет здесь власти!')
+#         await ctx.send(embed=embed)
+#         return
 
 
 # @bot.event
@@ -47,17 +60,17 @@ async def hello(ctx):  # Создаём функцию и передаём ар�
 @bot.command(help='Команда поздравления') # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
 async def padoru(ctx):  # Создаём функцию и передаём аргумент ctx.
     author = ctx.message.author  # Объявляем переменную author и записываем туда информацию об авторе.
-    gifs = ['https://cdn.discordapp.com/attachments/770262193949507656/785175895891247124/tenor_1.gif',
+    gifs = ['https://cdn.discordapp.com/attachments/770262193949507656/785177869139443722/tenor_1.gif',
           'https://media.discordapp.net/attachments/738296780009111583/783760232253489172/1575476244_388.gif',
-          'https://cdn.discordapp.com/attachments/770262193949507656/785176103119224882/tenor_2.gif',
-          'https://cdn.discordapp.com/attachments/770262193949507656/785176219813281853/tenor_3.gif',
-          'https://cdn.discordapp.com/attachments/770262193949507656/785176367942729779/tenor_4.gif',
-          'https://cdn.discordapp.com/attachments/770262193949507656/785176521702375473/tenor_5.gif']
+          'https://cdn.discordapp.com/attachments/770262193949507656/785177871386673192/tenor_2.gif',
+          'https://cdn.discordapp.com/attachments/770262193949507656/785177861413142548/tenor_3.gif',
+          'https://cdn.discordapp.com/attachments/770262193949507656/785177875452133416/tenor_4.gif',
+          'https://cdn.discordapp.com/attachments/770262193949507656/785177872507600906/tenor_5.gif']
     days = timeNY()
     text = [f'С наступающим новым годом, {author.mention}!',
             f'Уютного декабря и праздничного настроения, {author.mention}!',
             f'Побольше снега и гирлянд тебе, {author.mention}']
-    embed = discord.Embed(color=0x5B3375, description=random.choice(text) + f' {days} days until Padoru')
+    embed = discord.Embed(color=0x5B3375, description=random.choice(text) + f'\n {days} until Padoru')
     embed.set_image(url=random.choice(gifs))
     await ctx.send(embed=embed)
 
@@ -146,18 +159,6 @@ async def chnick(ctx, member: discord.Member, nick1='', nick2='', nick3='', nick
     except discord.ext.commands.errors.MissingPermissions(administrator=True):
         embed = discord.Embed(color=0x5B3375, description='У тебя нет здесь власти!')
         await ctx.send(embed=embed)
-
-
-@bot.event
-async def on_command_error(ctx, error):
-    author = ctx.message.author
-    # if command has local error handler, return
-    if hasattr(ctx.command, 'on_error'):
-        return
-    if isinstance(error, commands.MissingPermissions):
-        embed = discord.Embed(color=0x5B3375, description=f'{author.mention}, у тебя нет здесь власти!')
-        await ctx.send(embed=embed)
-        return
 
 
 @bot.command(help='create-channel')
