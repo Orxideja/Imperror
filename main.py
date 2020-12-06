@@ -25,11 +25,12 @@ async def on_ready():
         await bot.change_presence(status=discord.Status.idle, activity=game)
 
 
-# @bot.event
-# async def on_random_message(message):
-#     if ':EmojiName:' in message.content:
-#         emoji = get(bot.get_all_emojis(), name='EmojiName')
-#         await bot.add_reaction(message, emoji)
+@bot.event
+async def on_message(message):
+    if ':EmojiName:' in message.content:
+        emoji = get(bot.get_all_emojis(), name='EmojiName')
+        await bot.add_reaction(message, emoji)
+        await bot.process_commands(message)
 
 
 @bot.command(help='Команда приветствия') # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
@@ -42,7 +43,8 @@ async def hello(ctx):  # Создаём функцию и передаём ар�
 @bot.command(help='Команда поздравления') # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
 async def padoru(ctx):  # Создаём функцию и передаём аргумент ctx.
     author = ctx.message.author  # Объявляем переменную author и записываем туда информацию об авторе.
-    embed = discord.Embed(color=0x5B3375, description=f"С наступающим новым годом, {author.mention}!", image='https://media.discordapp.net/attachments/738296780009111583/783760232253489172/1575476244_388.gif')
+    image = requests.get('https://media.discordapp.net/attachments/738296780009111583/783760232253489172/1575476244_388.gif')
+    embed = discord.Embed(color=0x5B3375, description=f"С наступающим новым годом, {author.mention}!", image=image)
     await ctx.send(embed=embed)
 
 
