@@ -1,3 +1,4 @@
+import os
 import discord
 from discord.ext import commands
 from discord import abc
@@ -13,7 +14,7 @@ settings = {
     'prefix': '%'
 }
 bot = commands.Bot(command_prefix=settings['prefix']) # Так как мы указали префикс в settings, обращаемся к словарю с ключом prefix.
-
+TOKEN = os.getenv('TOKEN')
 
 @bot.event  #  Играет в...
 async def on_ready():
