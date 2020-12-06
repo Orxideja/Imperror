@@ -45,12 +45,12 @@ async def hello(ctx):  # Создаём функцию и передаём ар�
 @bot.command(help='Команда поздравления') # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
 async def padoru(ctx):  # Создаём функцию и передаём аргумент ctx.
     author = ctx.message.author  # Объявляем переменную author и записываем туда информацию об авторе.
-    gifs = ['https://tenor.com/view/padoru-merry-christmas-gif-12945582',
+    gifs = ['https://tenor.com/view/padoru-merry-christmas-gif-12945582.gif',
           'https://media.discordapp.net/attachments/738296780009111583/783760232253489172/1575476244_388.gif',
-          'https://tenor.com/view/meme-padoru-christmas-joke-anime-gif-16368098',
-          'https://tenor.com/view/padoru-merry-christmas-gif-12945572',
-          'https://tenor.com/view/padoru-padoru-anime-run-fate-series-saber-nero-gif-15979862',
-          'https://tenor.com/view/nero-gif-19251166']
+          'https://tenor.com/view/meme-padoru-christmas-joke-anime-gif-16368098.gif',
+          'https://tenor.com/view/padoru-merry-christmas-gif-12945572.gif',
+          'https://tenor.com/view/padoru-padoru-anime-run-fate-series-saber-nero-gif-15979862.gif',
+          'https://tenor.com/view/nero-gif-19251166.gif']
     text = [f'С наступающим новым годом, {author.mention}!',
             f'Уютного декабря и праздничного настроения, {author.mention}!',
             f'Побольше снега и гирлянд тебе, {author.mention}']
