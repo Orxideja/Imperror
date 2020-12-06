@@ -22,6 +22,13 @@ async def on_ready():
         game = discord.Game("Genshin Impact")
         await bot.change_presence(status=discord.Status.idle, activity=game)
 
+        
+async def on_message(message):
+    if message.content.find(':EmojiName:'):
+        for x in bot.get_all_emojis():
+            if x.id == '#EmojiID#':
+                return await bot.add_reaction(message, x)
+
 @bot.command(help='Команда приветствия') # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
 async def hello(ctx):  # Создаём функцию и передаём аргумент ctx.
     author = ctx.message.author  # Объявляем переменную author и записываем туда информацию об авторе.
