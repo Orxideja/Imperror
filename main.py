@@ -27,9 +27,6 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    # we do not want the bot to reply to itself
-    if message.author == bot.user:
-        return
     if ':EmojiName:' in message.content:
         emoji = get(bot.get_all_emojis(), name='EmojiName')
         await bot.add_reaction(message, emoji)
@@ -162,8 +159,6 @@ async def mutec(ctx, member: discord.Member):
     await member.add_roles(mute_role)
     await member.edit(deafen=True)
     await ctx.send(f'{member.mention} получил мут за плохое поведение!')
-
-
 
 
 @bot.command()
