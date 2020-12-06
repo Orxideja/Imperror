@@ -44,7 +44,8 @@ async def hello(ctx):  # Создаём функцию и передаём ар�
 async def padoru(ctx):  # Создаём функцию и передаём аргумент ctx.
     author = ctx.message.author  # Объявляем переменную author и записываем туда информацию об авторе.
     image = requests.get('https://media.discordapp.net/attachments/738296780009111583/783760232253489172/1575476244_388.gif')
-    embed = discord.Embed(color=0x5B3375, description=f"С наступающим новым годом, {author.mention}!", image=image)
+    text=random.choice[f'С наступающим новым годом, {author.mention}!', f'Уютного декабря и праздничного настроения, {author.mention}!',f'Побольше снега и гирлянд тебе, {author.mention}']
+    embed = discord.Embed(color=0x5B3375, description=text, image=image)
     await ctx.send(embed=embed)
 
 
