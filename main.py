@@ -182,4 +182,4 @@ async def leave(ctx):
         voice = await channel.disconnect()
         await ctx.send('успешно отключился')
 
-bot.run('TOKEN')  # Обращаемся к словарю settings с ключом token, для получения токена
+bot.run(TOKEN)  # Обращаемся к словарю settings с ключом token, для получения токена
