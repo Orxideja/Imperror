@@ -25,11 +25,11 @@ async def on_ready():
         await bot.change_presence(status=discord.Status.idle, activity=game)
 
 
-@bot.event
-async def on_message(message):
-    if ':EmojiName:' in message.content:
-        emoji = get(bot.get_all_emojis(), name='EmojiName')
-        await bot.add_reaction(message, emoji)
+# @bot.event
+# async def on_random_message(message):
+#     if ':EmojiName:' in message.content:
+#         emoji = get(bot.get_all_emojis(), name='EmojiName')
+#         await bot.add_reaction(message, emoji)
 
 
 @bot.command(help='Команда приветствия') # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
