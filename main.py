@@ -8,7 +8,6 @@ import time
 import asyncio
 
 settings = {
-    'token': 'NzY5ODI5NTQ3MTU5MzIyNjI0.X5Utog.mm5XGJwji1soK34uenO9R6IMxy4',
     'bot': 'Гейша Императора',
     'id': 769829547159322624,
     'prefix': '%'
@@ -183,4 +182,4 @@ async def leave(ctx):
         voice = await channel.disconnect()
         await ctx.send('успешно отключился')
 
-bot.run(settings['token'])  # Обращаемся к словарю settings с ключом token, для получения токена
+bot.run('TOKEN')  # Обращаемся к словарю settings с ключом token, для получения токена
