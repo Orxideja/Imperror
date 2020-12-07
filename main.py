@@ -5,6 +5,7 @@ from discord import abc
 import requests
 import random
 import datetime
+from discord.utils import get
 
 settings = {
     'bot': 'Гейша Императора',
@@ -30,24 +31,26 @@ async def on_ready():
         await bot.change_presence(status=discord.Status.idle, activity=game)
 
 
-# @bot.event
-# async def on_command_error(ctx, error):
-#     author = ctx.message.author
-#     # if command has local error handler, return
-#     if hasattr(ctx.command, 'on_error'):
-#         return
-#     if isinstance(error, commands.MissingPermissions):
-#         embed = discord.Embed(color=0x5B3375, description=f'{author.mention}, у тебя нет здесь власти!')
-#         await ctx.send(embed=embed)
-#         return
+@bot.event
+async def on_command_error(ctx, error):
+    author = ctx.message.author
+    # if command has local error handler, return
+    if hasattr(ctx.command, 'on_error'):
+        return
+    if isinstance(error, commands.MissingPermissions):
+        embed = discord.Embed(color=0x5B3375, description=f'{author.mention}, у тебя нет здесь власти!')
+        await ctx.send(embed=embed)
+        return
 
 
-# @bot.event
-# async def on_message(message):
-#     if ':EmojiName:' in message.content:
-#         emoji = get(bot.get_all_emojis(), name='EmojiName')
-#         await bot.add_reaction(message, emoji)
-#         await bot.process_commands(message)
+@bot.event
+async def on_message(message):
+    if message.author == bot.user:
+        return
+    if ':EmojiName:' in message.content:
+        emoji = get(bot.get_all_emojis(), name='EmojiName')
+        await bot.add_reaction(message, emoji)
+        await bot.process_commands(message)
 
 
 @bot.command(help='Команда приветствия') # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
