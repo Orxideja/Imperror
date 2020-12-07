@@ -44,12 +44,9 @@ async def on_command_error(ctx, error):
 
 
 @bot.event
-async def on_message(message):
-    if message.author == bot.user:
-        return
-    if ':EmojiName:' in message.content:
-        emoji = get(bot.get_all_emojis(), name='EmojiName')
-        await bot.add_reaction(message, emoji)
+async def on_message(message, guild: discord.guild):
+    emoji = random.choice(guild.emojis())
+    await bot.add_reaction(message, emoji)
     await bot.process_commands(message)
 
 
@@ -60,7 +57,7 @@ async def hello(ctx):  # Создаём функцию и передаём ар�
     await ctx.send(f'Кукусики, {author.mention}!')  # Выводим сообщение с упоминанием автора, обращаясь к переменной author.
 
 
-@bot.command(help='Команда поздравления') # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
+@bot.command(help='Команда поздравления')  # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
 async def padoru(ctx):  # Создаём функцию и передаём аргумент ctx.
     author = ctx.message.author  # Объявляем переменную author и записываем туда информацию об авторе.
     gifs = ['https://cdn.discordapp.com/attachments/770262193949507656/785177869139443722/tenor_1.gif',
@@ -174,6 +171,7 @@ async def create_channel(ctx):
         await ctx.send(embed=embed)
         await guild.create_voice_channel(channel_name)
 
+
 # Voice mute and unmute
 @bot.command()
 @commands.has_permissions(administrator=True)
@@ -245,7 +243,8 @@ async def leave(ctx):
 
 @commands.has_permissions(administrator=True)
 @bot.command()
-async def рассылка(ctx, role, *, message):
-    await ctx.role.send(message)
+async def рассылка(role, *, message):
+    for user in role:
+        await user.send(message)
 
 bot.run(TOKEN)  # Обращаемся к словарю settings с ключом token, для получения токена
