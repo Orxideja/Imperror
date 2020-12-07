@@ -246,6 +246,6 @@ async def leave(ctx):
 @commands.has_permissions(administrator=True)
 @bot.command()
 async def рассылка(ctx, role, *, message):
-    await role.send(message)
+    await ctx.role.send(message)
 
 bot.run(TOKEN)  # Обращаемся к словарю settings с ключом token, для получения токена
