@@ -164,7 +164,7 @@ async def chnick(ctx, member: discord.Member, *, nick):
 async def create_channel(ctx):
     guild = ctx.guild
     author = ctx.message.author
-    channel_name = author+'s торги'
+    channel_name = author+'s channel'
     existing_channel = discord.utils.get(guild.channels, name=channel_name)
     if not existing_channel:
         embed = discord.Embed(color=0x5B3375, description=f'Creating a new channel: {channel_name}')
