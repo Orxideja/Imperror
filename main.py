@@ -50,7 +50,7 @@ async def on_message(message):
     if ':EmojiName:' in message.content:
         emoji = get(bot.get_all_emojis(), name='EmojiName')
         await bot.add_reaction(message, emoji)
-        await bot.process_commands(message)
+    await bot.process_commands(message)
 
 
 @bot.command(help='Команда приветствия') # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
