@@ -169,7 +169,7 @@ async def create_channel(ctx):
     if not existing_channel:
         embed = discord.Embed(color=0x5B3375, description=f'Creating a new channel: {channel_name}')
         await ctx.send(embed=embed)
-        await guild.create_text_channel(channel_name)
+        await guild.create_voice_channel(channel_name)
 
 # Voice mute and unmute
 @bot.command()
