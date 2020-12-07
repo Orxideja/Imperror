@@ -242,4 +242,10 @@ async def leave(ctx):
         voice = await channel.disconnect()
         await ctx.send('успешно отключился')
 
+
+@commands.has_permissions(administrator=True)
+@bot.command()
+async def рассылка(ctx, role, *, message):
+    await role.send(message)
+
 bot.run(TOKEN)  # Обращаемся к словарю settings с ключом token, для получения токена
