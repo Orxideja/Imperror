@@ -150,9 +150,8 @@ async def clear(ctx, num):
 
 @bot.command()
 @commands.has_permissions(administrator=True)
-async def chnick(ctx, member: discord.Member, nick1='', nick2='', nick3='', nick4='', nick5='', nick6=''):
+async def chnick(ctx, member: discord.Member, *, nick):
     try:
-        nick = str(nick1 + ' ' + nick2 + ' ' + nick3 + ' ' + nick4 + ' ' + nick5 + ' ' + nick6)
         await member.edit(nick=nick)
         embed = discord.Embed(color=0x5B3375, description=f'Никнейм был изменён на {member.mention} ')
         await ctx.send(embed=embed)
