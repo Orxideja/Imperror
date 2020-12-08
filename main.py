@@ -5,7 +5,9 @@ from discord import abc
 import requests
 import random
 import datetime
-from discord.utils import get
+
+
+intents = discord.Intents.all()
 
 settings = {
     'bot': 'Гейша Императора',
@@ -245,8 +247,8 @@ async def leave(ctx):
 
 @commands.has_permissions(administrator=True)
 @bot.command()
-async def рассылка(role: discord.Role, *, message):
-   for members in role.members:
-        await members.send(message)
+async def рассылка(ctx, role: discord.Role, *, message):
+    for members in role.members:
+        await ctx.send_message(members, message)
 
 bot.run(TOKEN)  # Обращаемся к словарю settings с ключом token, для получения токена
