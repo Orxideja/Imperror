@@ -245,7 +245,7 @@ async def leave(ctx):
 
 @commands.has_permissions(administrator=True)
 @bot.command()
-async def рассылка(role, *, message):
+async def рассылка(role: discord.Role, *, message):
     for user in role:
         await user.send(message)
 
