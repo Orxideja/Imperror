@@ -33,16 +33,16 @@ async def on_ready():
         await bot.change_presence(status=discord.Status.idle, activity=game)
 
 
-# @bot.event
-# async def on_command_error(ctx, error):
-#     author = ctx.message.author
-#     # if command has local error handler, return
-#     if hasattr(ctx.command, 'on_error'):
-#         return
-#     if isinstance(error, commands.MissingPermissions):
-#         embed = discord.Embed(color=0x5B3375, description=f'{author.mention}, у тебя нет здесь власти!')
-#         await ctx.send(embed=embed)
-#         return
+@bot.event
+async def on_command_error(ctx, error):
+    author = ctx.message.author
+    # if command has local error handler, return
+    if hasattr(ctx.command, 'on_error'):
+        return
+    if isinstance(error, commands.MissingPermissions):
+        embed = discord.Embed(color=0x5B3375, description=f'{author.mention}, у тебя нет здесь власти!')
+        await ctx.send(embed=embed)
+        return
 
 #
 # @bot.event
@@ -249,6 +249,6 @@ async def leave(ctx):
 @bot.command()
 async def рассылка(ctx, role: discord.Role, *, message):
     for members in role.members:
-        await ctx.send_message(members, message)
+        await members.send(members, message)
 
 bot.run(TOKEN)  # Обращаемся к словарю settings с ключом token, для получения токена
