@@ -81,7 +81,7 @@ async def padoru(ctx):  # Создаём функцию и передаём ар
 
 @bot.command(help='Команда поздравления')  # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
 async def санбой(ctx):  # Создаём функцию и передаём аргумент ctx.
-
+    await ctx.channel.purge(limit=1)
     embed = discord.Embed(color=0x5B3375, description='Дожили до правды...')
     embed.set_image(url='https://cdn.discordapp.com/attachments/413778879119884288/793829717089189888/tenor.gif')
     await ctx.send(embed=embed)
