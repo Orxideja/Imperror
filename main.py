@@ -44,14 +44,14 @@ async def on_command_error(ctx, error):
         await ctx.send(embed=embed)
         return
 
-#
-# @bot.event
-# async def on_message(message):
-#     id = message.guild.id
-#     guild = bot.get_guild(id)
-#     emoji = random.choice(guild.emojis)
-#     await message.add_reaction(emoji=emoji)
-#     await bot.process_commands(message)
+
+@bot.event
+async def on_message(message):
+    id = message.guild.id
+    guild = bot.get_guild(id)
+    emoji = random.choice(guild.emojis)
+    await message.add_reaction(emoji=emoji)
+    await bot.process_commands(message)
 
 
 @bot.command(help='Команда приветствия')  # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
