@@ -87,30 +87,31 @@ async def санбой(ctx):  # Создаём функцию и передаё�
     await ctx.send(embed=embed)
 
 
-# @bot.command(aliases=["8ball"])
-# async def шар(ctx, *, question):
-#     responses = ["might be",
-#                  "yes",
-#                  "i point to yes",
-#                  "i think so",
-#                  "maybe ¯\_(ツ)_/¯ ",
-#                  "very lazy ask later",
-#                  "zzzzzzzzzzzzz",
-#                  "wait what?",
-#                  "no",
-#                  "WHO AM I TO YOU?!",
-#                  "CREEPER!",
-#                  "idk",
-#                  "¯\_(ツ)_/¯",
-#                  "doge  'aka:yes'",
-#                  "i dont think so",
-#                  "idgi",
-#                  "nope",
-#                  "doubtfull",
-#                  "more likely",
-#                  "play minecraft"
-#                  ]
-#     await ctx.send(f"{question}+\n + {random.choice(responses)}")
+@bot.command()
+async def шар(ctx, *, question):
+    responses = ["might be",
+                 "yes",
+                 "i point to yes",
+                 "i think so",
+                 "maybe ¯\_(ツ)_/¯ ",
+                 "very lazy ask later",
+                 "zzzzzzzzzzzzz",
+                 "wait what?",
+                 "no",
+                 "WHO AM I TO YOU?!",
+                 "CREEPER!",
+                 "idk",
+                 "¯\_(ツ)_/¯",
+                 "doge  'aka:yes'",
+                 "i dont think so",
+                 "idgi",
+                 "nope",
+                 "doubtfull",
+                 "more likely",
+                 "play minecraft"
+                 ]
+    embed = discord.Embed(color=0x5B3375, description=f'{question} \n + {random.choice(responses)}')
+    await ctx.send(embed=embed)
 
 @bot.command(help='Команда поиска картинки по слову')
 async def pic(ctx, keyword):
