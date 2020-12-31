@@ -21,10 +21,10 @@ TOKEN = os.getenv('TOKEN')
 def timeNY():
     now = datetime.datetime.today()
     NY = datetime.datetime(2021, 1, 1)
-    d = NY - now  # str(d)  '83 days, 2:43:10.517807'
+    d = NY - now
     mm, ss = divmod(d.seconds, 60)
     hh, mm = divmod(mm, 60)
-    return ('{} дней {} часа {} мин {} сек.'.format(d.days, hh, mm, ss))
+    return ('{} дней {} часа {} мин {} сек.'.format(d.days, hh-3, mm, ss))
 
 @bot.event  #  Играет в...
 async def on_ready():
