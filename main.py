@@ -110,7 +110,7 @@ async def шар(ctx, *, question):
                  "more likely",
                  "play minecraft"
                  ]
-    embed = discord.Embed(color=0x5B3375, description=f'{question} \n + {random.choice(responses)}')
+    embed = discord.Embed(color=0x5B3375, description=f'{question} \n Ответ: {random.choice(responses)}')
     await ctx.send(embed=embed)
 
 @bot.command(help='Команда поиска картинки по слову')
