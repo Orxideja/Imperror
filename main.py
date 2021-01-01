@@ -34,10 +34,10 @@ async def on_ready():
         t = datetime.datetime.now()
         ct = t.hour
         channel = bot.get_channel(738296780009111583)
-        if ct == 12:
-            await channel.send('Доброе утро, друзья, и хорошего вам, блядь, дня')
-        if ct == 15:
-            await channel.send('От лица персонала мотеля "League of Spirits"... Желаю вам, блядь, приятных сновидений')
+        # if ct == 12:
+        #     await channel.send('Доброе утро, друзья, и хорошего вам, блядь, дня')
+        # if ct == 15:
+        #     await channel.send('От лица персонала мотеля "League of Spirits"... Желаю вам, блядь, приятных сновидений')
 
 
 @bot.event
