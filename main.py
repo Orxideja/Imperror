@@ -31,6 +31,13 @@ async def on_ready():
     while True:
         game = discord.Game("Cyberpunk 2077")
         await bot.change_presence(status=discord.Status.idle, activity=game)
+        t = datetime.datetime.now()
+        ct = t.hour
+        channel = bot.get_channel(738296780009111583)
+        if ct == 12:
+            await channel.send('Доброе утро, друзья, и хорошего вам, блядь, дня')
+        if ct == 15:
+            await channel.send('От лица персонала мотеля "League of Spirits"... Желаю вам, блядь, приятных сновидений')
 
 
 @bot.event
@@ -44,15 +51,6 @@ async def on_command_error(ctx, error):
         await ctx.send(embed=embed)
         return
 
-@bot.event
-async def on_ready():
-    t=datetime.datetime.now()
-    ct=t.hour
-    channel = bot.get_channel(738296780009111583)
-    if ct == 12:
-        await channel.send('Доброе утро, друзья, и хорошего вам, блядь, дня')
-    if ct == 15:
-        await channel.send('От лица персонала мотеля "League of Spirits"... Желаю вам, блядь, приятных сновидений')
 
 # @bot.event
 # async def on_message(message):
