@@ -20,7 +20,7 @@ TOKEN = os.getenv('TOKEN')
 
 def timeNY():
     now = datetime.datetime.today()
-    NY = datetime.datetime(2021, 1, 1)
+    NY = datetime.datetime(2022, 1, 1)
     d = NY - now
     mm, ss = divmod(d.seconds, 60)
     hh, mm = divmod(mm, 60)
@@ -45,13 +45,13 @@ async def on_command_error(ctx, error):
         return
 
 
-@bot.event
-async def on_message(message):
-    id = message.guild.id
-    guild = bot.get_guild(id)
-    emoji = random.choice(guild.emojis)
-    await message.add_reaction(emoji=emoji)
-    await bot.process_commands(message)
+# @bot.event
+# async def on_message(message):
+#     id = message.guild.id
+#     guild = bot.get_guild(id)
+#     emoji = random.choice(guild.emojis)
+#     await message.add_reaction(emoji=emoji)
+#     await bot.process_commands(message)
 
 
 @bot.command(help='Команда приветствия')  # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
