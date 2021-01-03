@@ -34,7 +34,7 @@ async def on_ready():
         t = datetime.datetime.now()
         ct = t.hour
         channel = bot.get_channel(738296780009111583)
-        if ct == 7:
+        if ct == 6:
             await channel.send('Доброе утро, друзья, и хорошего вам, блядь, дня')
             break
         if ct == 20:
