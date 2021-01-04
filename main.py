@@ -39,8 +39,6 @@ async def on_ready():
             await channel.send('Доброе утро, друзья, и хорошего вам, блядь, дня')
         if hh == 20 and mm == 0 and ss == 0:
             await channel.send('От лица персонала мотеля "League of Spirits"... Желаю вам, блядь, приятных сновидений')
-            break
-
 
 @bot.event
 async def on_command_error(ctx, error):
