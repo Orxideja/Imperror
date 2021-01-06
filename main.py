@@ -270,4 +270,42 @@ async def рассылка(ctx, role: discord.Role, *, message):
     for members in role.members:
         await members.send(members, message)
 
+category_id = 746298180165042196  # id категории
+make_channel_id = 'id'  # id канала, для создания временных каналов
+temp = []
+
+
+@bot.event
+async def on_voice_state_update(member, before, after):
+    if after.channel:
+        if after.channel.id == make_channel_id:
+            guild = member.guild # достём guild
+
+            # достаём категорию, здесь нужно исправить, но я не помню что и как
+            # по итогу здесь должен быть объект категории
+            category = discord.utils.get(guild.categories, id=category_id)
+
+            # создаём канал в категории
+            created_channel = await guild.create_voice_channel(
+                f'╠╣{member.display_name}',
+                position=3,
+                category=category,
+                bitrate=96000
+            )
+
+            # устанавливаем права
+            await created_channel.set_permissions(member, connect=True, mute_members=True, move_members=True, manage_channels=True)
+            # двигаем пользователя в канал
+            await member.move_to(created_channel)
+            # чтобы ничего не ждать, сохраняем id канала
+            temp.append(created_channel.id)
+
+    # алгоритм удаления
+    elif before.channel:
+        # проверяем id в списке
+        if before.channel.id in temp:
+            # если нет пользователей - удаляем
+            if not before.channel.members:
+                return await before.channel.delete()
+
 bot.run(TOKEN)  # Обращаемся к словарю settings с ключом token, для получения токена
