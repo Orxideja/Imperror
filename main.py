@@ -271,7 +271,7 @@ async def рассылка(ctx, role: discord.Role, *, message):
         await members.send(members, message)
 
 category_id = 746298180165042196  # id категории
-make_channel_id = 796337862730711130  # id канала, для создания временных каналов
+make_channel_id = 796343262356832256  # id канала, для создания временных каналов
 temp = []
 
 
