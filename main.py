@@ -270,8 +270,8 @@ async def рассылка(ctx, role: discord.Role, *, message):
     for members in role.members:
         await members.send(members, message)
 
-category_id = 796335073078804490  # id категории
-make_channel_id = 796336107057840139  # id канала, для создания временных каналов
+category_id = 746298180165042196  # id категории
+make_channel_id = 796337862730711130  # id канала, для создания временных каналов
 temp = []
 
 
@@ -287,8 +287,8 @@ async def on_voice_state_update(member, before, after):
 
             # создаём канал в категории
             created_channel = await guild.create_voice_channel(
-                f'╠╣{member.display_name}',
-                position=3,
+                f'{member.display_name} channel',
+                # position=3,
                 category=category,
                 bitrate=96000
             )
