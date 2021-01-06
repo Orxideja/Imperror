@@ -270,7 +270,7 @@ async def рассылка(ctx, role: discord.Role, *, message):
     for members in role.members:
         await members.send(members, message)
 
-category_id = 746298180165042196  # id категории
+category_id = 796335073078804490  # id категории
 make_channel_id = 'id'  # id канала, для создания временных каналов
 temp = []
 
@@ -279,7 +279,7 @@ temp = []
 async def on_voice_state_update(member, before, after):
     if after.channel:
         if after.channel.id == make_channel_id:
-            guild = member.guild # достём guild
+            guild = member.guild  # достём guild
 
             # достаём категорию, здесь нужно исправить, но я не помню что и как
             # по итогу здесь должен быть объект категории
