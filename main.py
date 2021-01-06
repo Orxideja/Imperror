@@ -14,7 +14,7 @@ settings = {
     'id': 769829547159322624,
     'prefix': '%'
 }
-bot = commands.Bot(command_prefix=settings['prefix']) # Так как мы указали префикс в settings, обращаемся к словарю с ключом prefix.
+bot = commands.Bot(command_prefix=settings['prefix'], case_insensitive=True) # Так как мы указали префикс в settings, обращаемся к словарю с ключом prefix.
 TOKEN = os.getenv('TOKEN')
 
 
