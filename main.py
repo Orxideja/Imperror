@@ -270,8 +270,8 @@ async def рассылка(ctx, role: discord.Role, *, message):
     for members in role.members:
         await members.send(members, message)
 
-category_id = 746298180165042196  # id категории
-make_channel_id = 796343262356832256  # id канала, для создания временных каналов
+category_id = 797843720690860032  # id категории
+make_channel_id = 797843749585551371  # id канала, для создания временных каналов
 temp = []
 
 
@@ -307,5 +307,11 @@ async def on_voice_state_update(member, before, after):
             # если нет пользователей - удаляем
             if not before.channel.members:
                 return await before.channel.delete()
+
+
+@bot.event
+async def on_member_join(member):
+    role = discord.utils.get(member.guild.roles, id=798093661523017769)
+    await member.add_roles(role)
 
 bot.run(TOKEN)  # Обращаемся к словарю settings с ключом token, для получения токена
