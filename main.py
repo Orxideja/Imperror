@@ -26,6 +26,7 @@ def timeNY():
     hh, mm = divmod(mm, 60)
     return ('{} дней {} часа {} мин {} сек.'.format(d.days, hh-3, mm, ss))
 
+
 @bot.event  #  Играет в...
 async def on_ready():
     while True:
@@ -311,7 +312,8 @@ async def on_voice_state_update(member, before, after):
 
 @bot.event
 async def on_member_join(member):
-    role = discord.utils.get(member.guild.roles, id=798093661523017769)
-    await member.add_roles(role)
+    role1 = member.guild.get_role(786338736744038460)  # отслеживающие
+    role2 = member.guild.get_role(798090853087313920)  # exclusive
+    await member.add_roles(role1, role2)
 
 bot.run(TOKEN)  # Обращаемся к словарю settings с ключом token, для получения токена
