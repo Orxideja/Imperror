@@ -7,14 +7,15 @@ import random
 import datetime
 
 
-intents = discord.Intents.all()
+intents = discord.Intents.default()
+intents.members = True
 
 settings = {
     'bot': 'Легенда Посмертия',
     'id': 769829547159322624,
     'prefix': '%'
 }
-bot = commands.Bot(command_prefix=settings['prefix'], case_insensitive=True) # Так как мы указали префикс в settings, обращаемся к словарю с ключом prefix.
+bot = commands.Bot(command_prefix=settings['prefix'], intents=intents, case_insensitive=True) # Так как мы указали префикс в settings, обращаемся к словарю с ключом prefix.
 TOKEN = os.getenv('TOKEN')
 
 
@@ -27,19 +28,19 @@ def timeNY():
     return ('{} дней {} часа {} мин {} сек.'.format(d.days, hh-3, mm, ss))
 
 
-@bot.event  #  Играет в...
-async def on_ready():
-    while True:
-        game = discord.Game("Cyberpunk 2077")
-        await bot.change_presence(status=discord.Status.idle, activity=game)
-        t = datetime.datetime.now()
-        mm, ss = divmod(t.seconds, 60)
-        hh, mm = divmod(mm, 60)
-        channel = bot.get_channel(738296780009111583)
-        if hh == 6 and mm == 0 and ss == 0:
-            await channel.send('Доброе утро, друзья, и хорошего вам, блядь, дня')
-        if hh == 20 and mm == 0 and ss == 0:
-            await channel.send('От лица персонала мотеля "League of Spirits"... Желаю вам, блядь, приятных сновидений')
+# @bot.event  #  Играет в...
+# async def on_ready():
+#     while True:
+#         game = discord.Game("Cyberpunk 2077")
+#         await bot.change_presence(status=discord.Status.idle, activity=game)
+#         t = datetime.datetime.today()
+#         mm, ss = divmod(t.seconds, 60)
+#         hh, mm = divmod(mm, 60)
+#         channel = bot.get_channel(738296780009111583)
+#         if hh == 6 and mm == 0 and ss == 0:
+#             await channel.send('Доброе утро, друзья, и хорошего вам, блядь, дня')
+#         if hh == 20 and mm == 0 and ss == 0:
+#             await channel.send('От лица персонала мотеля "League of Spirits"... Желаю вам, блядь, приятных сновидений')
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -267,9 +268,10 @@ async def leave(ctx):
 
 @commands.has_permissions(administrator=True)
 @bot.command()
-async def рассылка(ctx, role: discord.Role, *, message):
-    for members in role.members:
-        await members.send(members, message)
+async def рассылка(role: discord.Role, *, message):
+    for member in role.members:
+        dm = member.create_dm
+        await dm.send(message)
 
 category_id = 797843720690860032  # id категории
 make_channel_id = 797843749585551371  # id канала, для создания временных каналов
