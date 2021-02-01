@@ -31,7 +31,7 @@ def timeNY():
 @bot.event  #  Играет в...
 async def on_ready():
     while True:
-        game = discord.Game("Cyberpunk 2077")
+        game = discord.Game("Assassin's Creed Valhalla")
         await bot.change_presence(status=discord.Status.idle, activity=game)
         # t = datetime.datetime.today()
         # mm, ss = divmod(t.seconds, 60)
