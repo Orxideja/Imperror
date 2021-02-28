@@ -31,8 +31,8 @@ def timeNY():
 @bot.event  #  Смотрит...
 async def on_ready():
     while True:
-        channel = discord.Streaming("https://www.twitch.tv/yourtsukuyomi")
-        await bot.change_presence(status=discord.Status.online, activity=channel)
+        steam = discord.Streaming(name="Your Tsukuyomi", url="https://www.twitch.tv/yourtsukuyomi")
+        await bot.change_presence(status=discord.Status.online, activity=steam)
 
 
 @bot.event
