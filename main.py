@@ -5,6 +5,8 @@ from discord import abc
 import requests
 import random
 import datetime
+from bs4 import BeautifulSoup as bs
+from urllib.request import urlopen
 
 
 intents = discord.Intents.default()
@@ -34,17 +36,38 @@ async def on_ready():
         steam = discord.Streaming(name="Your Tsukuyomi", url="https://www.twitch.tv/yourtsukuyomi")
         await bot.change_presence(status=discord.Status.online, activity=steam)
 
+headers = {'accept': '*/*',
+'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 YaBrowser/19.9.0.1343 Yowser/2.5 Safari/537.36'}
 
-@bot.event
-async def on_command_error(ctx, error):
-    author = ctx.message.author
-    # if command has local error handler, return
-    if hasattr(ctx.command, 'on_error'):
-        return
-    if isinstance(error, commands.MissingPermissions):
-        embed = discord.Embed(color=0x5B3375, description=f'{author.mention}, у тебя нет здесь власти!')
-        await ctx.send(embed=embed)
-        return
+base_url = 'https://pikabu.ru/community/steam'
+
+
+@bot.command(pass_context = True)
+async def free(ctx):
+    #await ctx.message.delete()
+    session = requests.Session()
+    request = session.get(base_url, headers=headers)
+    soup = bs(request.content, 'lxml')
+    title = soup.find('h2', attrs={'story__title'}).text
+    href = soup.find('a', attrs={'story__title-link'})['href']
+    content_text = soup.find('div', attrs = {'story-block story-block_type_text'}).text
+    date = soup.find('time', attrs={'caption story__datetime hint'}).text
+    await ctx.send(title)
+    await ctx.send(content_text)
+    await ctx.send(href)
+    await ctx.send(date)
+
+
+# @bot.event
+# async def on_command_error(ctx, error):
+#     author = ctx.message.author
+#     # if command has local error handler, return
+#     if hasattr(ctx.command, 'on_error'):
+#         return
+#     if isinstance(error, commands.MissingPermissions):
+#         embed = discord.Embed(color=0x5B3375, description=f'{author.mention}, у тебя нет здесь власти!')
+#         await ctx.send(embed=embed)
+#         return
 
 
 @bot.command(help='Команда приветствия')  # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
