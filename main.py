@@ -265,21 +265,11 @@ async def leave(ctx):
         voice = await channel.disconnect()
         await ctx.send('успешно отключился')
 
-
-@commands.has_permissions(administrator=True)
-@bot.command()
-async def рассылка(role: discord.Role, *, message):
-    for member in role.members:
-        dm = member.create_dm
-        await dm.send(message)
-
-category_id = 797843720690860032  # id категории
-make_channel_id = 797843749585551371  # id канала, для создания временных каналов
-temp = []
-
-
 @bot.event
 async def on_voice_state_update(member, before, after):
+    category_id = 797843720690860032  # id категории
+    make_channel_id = 797843749585551371  # id канала, для создания временных каналов
+    temp = []
     if after.channel:
         if after.channel.id == make_channel_id:
             guild = member.guild  # достём guild
@@ -291,7 +281,6 @@ async def on_voice_state_update(member, before, after):
             # создаём канал в категории
             created_channel = await guild.create_voice_channel(
                 f'{member.display_name} channel',
-                # position=3,
                 category=category,
                 bitrate=96000
             )
@@ -310,12 +299,5 @@ async def on_voice_state_update(member, before, after):
             # если нет пользователей - удаляем
             if not before.channel.members:
                 return await before.channel.delete()
-
-
-@bot.event
-async def on_member_join(member):
-    role1 = member.guild.get_role(786338736744038460)  # отслеживающие
-    role2 = member.guild.get_role(798090853087313920)  # exclusive
-    await member.add_roles(role1, role2)
 
 bot.run(TOKEN)  # Обращаемся к словарю settings с ключом token, для получения токена
