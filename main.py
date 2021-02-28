@@ -28,11 +28,12 @@ def timeNY():
     return ('{} дней {} часа {} мин {} сек.'.format(d.days, hh-3, mm, ss))
 
 
-@bot.event  #  Играет в...
+@bot.event  #  Смотрит...
 async def on_ready():
     while True:
-        channel = discord.Activity("https://www.twitch.tv/yourtsukuyomi")
-        await bot.change_presence(status=discord.Status.idle, activity=channel)
+        channel = discord.Streaming("https://www.twitch.tv/yourtsukuyomi")
+        await bot.change_presence(status=discord.Status.online, activity=channel)
+
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -46,15 +47,6 @@ async def on_command_error(ctx, error):
         return
 
 
-# @bot.event
-# async def on_message(message):
-#     id = message.guild.id
-#     guild = bot.get_guild(id)
-#     emoji = random.choice(guild.emojis)
-#     await message.add_reaction(emoji=emoji)
-#     await bot.process_commands(message)
-
-
 @bot.command(help='Команда приветствия')  # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
 async def hello(ctx):  # Создаём функцию и передаём аргумент ctx.
     author = ctx.message.author  # Объявляем переменную author и записываем туда информацию об авторе.
@@ -62,30 +54,22 @@ async def hello(ctx):  # Создаём функцию и передаём ар�
     await ctx.send(f'Кукусики, {author.mention}!')  # Выводим сообщение с упоминанием автора, обращаясь к переменной author.
 
 
-@bot.command(help='Команда поздравления')  # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
-async def padoru(ctx):  # Создаём функцию и передаём аргумент ctx.
-    author = ctx.message.author  # Объявляем переменную author и записываем туда информацию об авторе.
-    gifs = ['https://cdn.discordapp.com/attachments/770262193949507656/785177869139443722/tenor_1.gif',
-          'https://media.discordapp.net/attachments/738296780009111583/783760232253489172/1575476244_388.gif',
-          'https://cdn.discordapp.com/attachments/770262193949507656/785177871386673192/tenor_2.gif',
-          'https://cdn.discordapp.com/attachments/770262193949507656/785177861413142548/tenor_3.gif',
-          'https://cdn.discordapp.com/attachments/770262193949507656/785177875452133416/tenor_4.gif',
-          'https://cdn.discordapp.com/attachments/770262193949507656/785177872507600906/tenor_5.gif']
-    days = timeNY()
-    text = [f'С наступающим новым годом, {author.mention}!',
-            f'Уютного декабря и праздничного настроения, {author.mention}!',
-            f'Побольше снега и гирлянд тебе, {author.mention}']
-    embed = discord.Embed(color=0x5B3375, description=random.choice(text) + f'\n {days} until Padoru')
-    embed.set_image(url=random.choice(gifs))
-    await ctx.send(embed=embed)
-
-
-@bot.command(help='Команда поздравления')  # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
-async def санбой(ctx):  # Создаём функцию и передаём аргумент ctx.
-    await ctx.channel.purge(limit=1)
-    embed = discord.Embed(color=0x5B3375, description='Дожили до правды...')
-    embed.set_image(url='https://cdn.discordapp.com/attachments/413778879119884288/793829717089189888/tenor.gif')
-    await ctx.send(embed=embed)
+# @bot.command(help='Команда поздравления')  # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
+# async def padoru(ctx):  # Создаём функцию и передаём аргумент ctx.
+#     author = ctx.message.author  # Объявляем переменную author и записываем туда информацию об авторе.
+#     gifs = ['https://cdn.discordapp.com/attachments/770262193949507656/785177869139443722/tenor_1.gif',
+#           'https://media.discordapp.net/attachments/738296780009111583/783760232253489172/1575476244_388.gif',
+#           'https://cdn.discordapp.com/attachments/770262193949507656/785177871386673192/tenor_2.gif',
+#           'https://cdn.discordapp.com/attachments/770262193949507656/785177861413142548/tenor_3.gif',
+#           'https://cdn.discordapp.com/attachments/770262193949507656/785177875452133416/tenor_4.gif',
+#           'https://cdn.discordapp.com/attachments/770262193949507656/785177872507600906/tenor_5.gif']
+#     days = timeNY()
+#     text = [f'С наступающим новым годом, {author.mention}!',
+#             f'Уютного декабря и праздничного настроения, {author.mention}!',
+#             f'Побольше снега и гирлянд тебе, {author.mention}']
+#     embed = discord.Embed(color=0x5B3375, description=random.choice(text) + f'\n {days} until Padoru')
+#     embed.set_image(url=random.choice(gifs))
+#     await ctx.send(embed=embed)
 
 
 @bot.command()
@@ -116,6 +100,7 @@ async def шар(ctx, *, question):
                  ]
     embed = discord.Embed(color=0x5B3375, description=f'{question} \n Ответ: {random.choice(responses)}')
     await ctx.send(embed=embed)
+
 
 @bot.command(help='Команда поиска картинки по слову')
 async def pic(ctx, keyword):
