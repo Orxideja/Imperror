@@ -31,16 +31,8 @@ def timeNY():
 @bot.event  #  Играет в...
 async def on_ready():
     while True:
-        game = discord.Game("Assassin's Creed Valhalla")
-        await bot.change_presence(status=discord.Status.idle, activity=game)
-        # t = datetime.datetime.today()
-        # mm, ss = divmod(t.seconds, 60)
-        # hh, mm = divmod(mm, 60)
-        # channel = bot.get_channel(738296780009111583)
-        # if hh == 6 and mm == 0 and ss == 0:
-        #     await channel.send('Доброе утро, друзья, и хорошего вам, блядь, дня')
-        # if hh == 20 and mm == 0 and ss == 0:
-        #     await channel.send('От лица персонала мотеля "League of Spirits"... Желаю вам, блядь, приятных сновидений')
+        channel = discord.Activity("https://www.twitch.tv/yourtsukuyomi")
+        await bot.change_presence(status=discord.Status.idle, activity=channel)
 
 @bot.event
 async def on_command_error(ctx, error):
