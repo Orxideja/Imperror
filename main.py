@@ -5,7 +5,7 @@ from discord import abc
 import requests
 import random
 import datetime
-from discord.ext import tasks
+import asyncio
 from bs4 import BeautifulSoup as bs
 
 
@@ -43,7 +43,6 @@ headers = {'accept': '*/*',
 base_url = 'https://pikabu.ru/community/steam'
 
 
-# @tasks.loop(minutes=5)
 @bot.command(pass_context=True)
 async def free(ctx):
     channel = bot.get_channel(798093957938413589)
@@ -58,6 +57,7 @@ async def free(ctx):
     embed = discord.Embed(color=0x5B3375, description=title + "\n" + content_text + "\n" + href)
     embed.set_image(url=img)
     await channel.send(embed=embed)
+    # loop = asyncio.get_event_loop()
 
 # @bot.event
 # async def on_command_error(ctx, error):
