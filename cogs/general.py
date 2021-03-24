@@ -1,42 +1,12 @@
-import os, sys, discord, platform, random, aiohttp, json
+import discord
+import random
 from discord.ext import commands
+from discord import abc
 
 
 class general(commands.Cog, name="general"):
     def __init__(self, bot):
         self.bot = bot
-
-    @commands.command(name="info", aliases=["botinfo"])
-    async def info(self, context):
-        """
-        Get some useful (or not) information about the bot.
-        """
-        embed = discord.Embed(
-            description="Used Krypton's template",
-            color=config.success
-        )
-        embed.set_author(
-            name="Bot Information"
-        )
-        embed.add_field(
-            name="Owner:",
-            value="Krypton#2188",
-            inline=True
-        )
-        embed.add_field(
-            name="Python Version:",
-            value=f"{platform.python_version()}",
-            inline=True
-        )
-        embed.add_field(
-            name="Prefix:",
-            value=f"{config.BOT_PREFIX}",
-            inline=False
-        )
-        embed.set_footer(
-            text=f"Requested by {context.message.author}"
-        )
-        await context.send(embed=embed)
 
     @commands.command(name="serverinfo")
     async def serverinfo(self, context):
@@ -58,7 +28,6 @@ class general(commands.Cog, name="general"):
         embed = discord.Embed(
             title="**Server Name:**",
             description=f"{server}",
-            color=config.success
         )
         embed.set_thumbnail(
             url=server.icon_url
@@ -88,53 +57,21 @@ class general(commands.Cog, name="general"):
         )
         await context.send(embed=embed)
 
-    @commands.command(name="ping")
-    async def ping(self, context):
-        """
-        Check if the bot is alive.
-        """
-        embed = discord.Embed(
-            color=config.success
-        )
-        embed.add_field(
-            name="Pong!",
-            value=":ping_pong:",
-            inline=True
-        )
-        embed.set_footer(
-            text=f"Pong request by {context.message.author}"
-        )
-        await context.send(embed=embed)
-
-    @commands.command(name="invite")
-    async def invite(self, context):
-        """
-        Get the invite link of the bot to be able to invite it.
-        """
-        await context.send("I sent you a private message!")
-        await context.author.send(f"Invite me by clicking here: https://discordapp.com/oauth2/authorize?&client_id={config.APPLICATION_ID}&scope=bot&permissions=8")
-
-    @commands.command(name="server")
-    async def server(self, context):
-        """
-        Get the invite link of the discord server of the bot for some support.
-        """
-        await context.send("I sent you a private message!")
-        await context.author.send("Join my discord server by clicking here: https://discord.gg/HzJ3Gfr")
+    @commands.command(name="hello")
+    async def hello(self, context):  # Создаём функцию и передаём аргумент ctx.
+        author = context.message.author  # Объявляем переменную author и записываем туда информацию об авторе.
+        await context.send(f'Кукусики, {author.mention}!')  # Выводим сообщение с упоминанием автора, обращаясь к переменной author.
 
     @commands.command(name="poll")
     async def poll(self, context, *args):
         """
         Create a poll where members can vote.
         """
-        poll_title = " ".join(args)
         embed = discord.Embed(
-            title="A new poll has been created!",
-            description=f"{poll_title}",
-            color=config.success
+            title=args
         )
         embed.set_footer(
-            text=f"Poll created by: {context.message.author} • React to vote!"
+            text=f"Голосование создано: {context.message.author} • Жмякайте реакцию!"
         )
         embed_message = await context.send(embed=embed)
         await embed_message.add_reaction("👍")
@@ -142,44 +79,54 @@ class general(commands.Cog, name="general"):
         await embed_message.add_reaction("🤷")
 
     @commands.command(name="8ball")
-    async def eight_ball(self, context, *args):
+    async def шар(self, context, *args):
+        responses = ["А ты как считаешь?",
+                 "Определённо да",
+                 "Конечно же нет",
+                 'Боги говорят - "да"',
+                 "Никаких сомнений",
+                 "Может быть, я не знаю, я же шар",
+                 "Слишком геморно, напиши позже",
+                 "Лучше тебе не знать ответ на этот вопрос",
+                 "Я настолько преисполнился в своём познании, что не хочу тебе отвечать",
+                 "Ты уверен, что хочешь услышать ответ на это?",
+                 "Нельзя просто так взять и ответить на этот вопрос",
+                 "Ты хоть понимаешь, что спрашиваешь?",
+                 "Может быть",
+                 "┻━┻ ︵ヽ(`Д´)ﾉ︵ ┻━┻",
+                 "Я бы ответил, но ответ настолько очевиден, что я не буду подсказывать",
+                 "Мне так не кажется",
+                 "Весьма сомнительно",
+                 "В перспективе - да",
+                 "Ебанутый ты задаёшь в ебанутом мире ебанутые вопросы ебанутому мне, чтобы получить ебанутый ответ?",
+                 "Ебать мой лысый хуй, ты что, совсем, что ли, что за вопросы?",
+                 "Мне кажется, задавая такие вопросы, ты хочешь получить пизды, причём в плохом смысле",
+                 'Говорю "да" только потому что ты хочешь это услышать',
+                 "Может быть. А, может, и нет. А, может, пошёл ты"
+                 ]
+        embed = discord.Embed(color=0x5B3375, description=f'{args} \n Ответ: {random.choice(responses)}')
+        await context.send(embed=embed)
+
+    @commands.command(name="embed")
+    async def embed(self, context, *, args):
         """
-        Ask any question to the bot.
+        The bot will say anything you want, but within embeds.
         """
-        answers = ['It is certain.', 'It is decidedly so.', 'You may rely on it.', 'Without a doubt.',
-                   'Yes - definitely.', 'As I see, yes.', 'Most likely.', 'Outlook good.', 'Yes.',
-                   'Signs point to yes.', 'Reply hazy, try again.', 'Ask again later.', 'Better not tell you now.',
-                   'Cannot predict now.', 'Concentrate and ask again later.', 'Don\'t count on it.', 'My reply is no.',
-                   'My sources say no.', 'Outlook not so good.', 'Very doubtful.']
         embed = discord.Embed(
-            title="**My Answer:**",
-            description=f"{answers[random.randint(0, len(answers))]}",
-            color=config.success
-        )
-        embed.set_footer(
-            text=f"Question asked by: {context.message.author}"
+            description=args,
         )
         await context.send(embed=embed)
 
-    @commands.command(name="bitcoin")
-    async def bitcoin(self, context):
-        """
-        Get the current price of bitcoin.
-        """
-        url = "https://api.coindesk.com/v1/bpi/currentprice/BTC.json"
-        # Async HTTP request
-        async with aiohttp.ClientSession() as session:
-            raw_response = await session.get(url)
-            response = await raw_response.text()
-            response = json.loads(response)
-            embed = discord.Embed(
-                title=":information_source: Info",
-                description=f"Bitcoin price is: ${response['bpi']['USD']['rate']}",
-                color=config.success
-            )
-            await context.send(embed=embed)
-
-
+    @commands.command(help='адм.команда-удаление сообщений')
+    @commands.has_permissions(administrator=True)
+    async def clear(self, context, num):
+        msg = []  # Empty list to put all the messages in the log
+        num = int(num)  # Converting the amount of messages to delete to an integer
+        async for x in abc.Messageable.history(context.message.channel, limit=num):
+            msg.append(x)
+        await context.channel.delete_messages(msg)
+        embed = discord.Embed(color=0x5B3375, description=f"{num} сообщений было удалено")
+        await context.send(embed=embed)
 
 
 def setup(bot):
