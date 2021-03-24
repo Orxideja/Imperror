@@ -15,7 +15,7 @@ class inWork(commands.Cog, name="owner"):
     def __init__(self, bot):
         self.bot = bot
 
-    def timeNY():
+    def timeNY(self):
         now = datetime.datetime.today()
         NY = datetime.datetime(2022, 1, 1)
         d = NY - now
@@ -46,16 +46,7 @@ class inWork(commands.Cog, name="owner"):
         await channel.send(embed=embed)
         # loop = asyncio.get_event_loop()
 
-    # @bot.event
-    # async def on_command_error(ctx, error):
-    #     author = ctx.message.author
-    #     # if command has local error handler, return
-    #     if hasattr(ctx.command, 'on_error'):
-    #         return
-    #     if isinstance(error, commands.MissingPermissions):
-    #         embed = discord.Embed(color=0x5B3375, description=f'{author.mention}, у тебя нет здесь власти!')
-    #         await ctx.send(embed=embed)
-    #         return
+
 
     # @bot.command(help='Команда поздравления')  # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
     # async def padoru(ctx):  # Создаём функцию и передаём аргумент ctx.

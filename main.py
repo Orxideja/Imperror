@@ -50,6 +50,7 @@ category_id = 797843720690860032  # id категории
 make_channel_id = 797843749585551371  # id канала, для создания временных каналов
 temp = []
 
+
 @bot.event
 async def on_voice_state_update(member, before, after):
     if after.channel:
@@ -83,5 +84,16 @@ async def on_voice_state_update(member, before, after):
             if not before.channel.members:
                 return await before.channel.delete()
 
+
+@bot.event
+async def on_command_error(ctx, error):
+    author = ctx.message.author
+    # if command has local error handler, return
+    if hasattr(ctx.command, 'on_error'):
+        return
+    if isinstance(error, commands.MissingPermissions):
+        embed = discord.Embed(color=0x5B3375, description=f'{author.mention}, у тебя нет здесь власти!')
+        await ctx.send(embed=embed)
+        return
 
 bot.run(TOKEN)  # Обращаемся к словарю settings с ключом token, для получения токена
