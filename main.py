@@ -20,6 +20,16 @@ settings = {
 bot = commands.Bot(command_prefix=settings['prefix'], intents=intents, case_insensitive=True) # Так как мы указали префикс в settings, обращаемся к словарю с ключом prefix.
 TOKEN = os.getenv('TOKEN')
 
+if __name__ == "__main__":
+	for file in os.listdir("./cogs"):
+		if file.endswith(".py"):
+			extension = file[:-3]
+			try:
+				bot.load_extension(f"cogs.{extension}")
+				print(f"Loaded extension '{extension}'")
+			except Exception as e:
+				exception = f"{type(e).__name__}: {e}"
+				print(f"Failed to load extension {extension}\n{exception}")
 
 def timeNY():
     now = datetime.datetime.today()
