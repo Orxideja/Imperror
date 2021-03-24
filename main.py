@@ -43,7 +43,7 @@ headers = {'accept': '*/*',
 base_url = 'https://pikabu.ru/community/steam'
 
 
-@tasks.loop(minutes=5)
+# @tasks.loop(minutes=5)
 @bot.command(pass_context=True)
 async def free(ctx):
     channel = bot.get_channel(798093957938413589)
