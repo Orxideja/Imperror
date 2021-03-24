@@ -7,7 +7,7 @@ class Fun(commands.Cog, name="fun"):
         self.bot = bot
 
     @commands.command(name="dick")
-    async def dick(self, context, member : discord.Member = None):
+    async def dick(self, context, member: discord.Member = None):
         """
         Get the dick's length of a user or yourself.
         """
