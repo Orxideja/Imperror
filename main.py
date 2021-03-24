@@ -30,7 +30,7 @@ def timeNY():
     return ('{} дней {} часа {} мин {} сек.'.format(d.days, hh-3, mm, ss))
 
 
-@bot.event  #  Смотрит...
+@bot.event  #  Стримит...
 async def on_ready():
     while True:
         steam = discord.Streaming(name="Your Tsukuyomi", url="https://www.twitch.tv/yourtsukuyomi")
@@ -43,7 +43,7 @@ headers = {'accept': '*/*',
 base_url = 'https://pikabu.ru/community/steam'
 
 
-# @tasks.loop(seconds=5)
+@tasks.loop(minutes=5)
 @bot.command(pass_context=True)
 async def free(ctx):
     channel = bot.get_channel(798093957938413589)
