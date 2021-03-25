@@ -77,7 +77,7 @@ async def on_voice_state_update(member, before, after):
             temp.append(created_channel.id)
 
     # алгоритм удаления
-    elif before.channel:
+    if before.channel:
         # проверяем id в списке
         if before.channel.id in temp:
             # если нет пользователей - удаляем
