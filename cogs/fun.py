@@ -68,7 +68,7 @@ class Fun(commands.Cog, name="fun"):
             timeout_embed = discord.Embed(title="Too late")
             timeout_embed.set_author(name=context.author.display_name, icon_url=context.author.avatar_url)
             await choose_message.edit(embed=timeout_embed)
-            
+
     @commands.command()
     async def beer(self, ctx, user: discord.Member = None, *, reason: commands.clean_content = ""):
         """ Give someone a beer! 🍻 """
@@ -100,5 +100,25 @@ class Fun(commands.Cog, name="fun"):
             beer_offer = f"**{user.name}**, you got a 🍺 from **{ctx.author.name}**"
             beer_offer = beer_offer + f"\n\n**Reason:** {reason}" if reason else beer_offer
             await msg.edit(content=beer_offer)
+
+        @commands.command(aliases=['slots', 'bet'])
+        @commands.cooldown(rate=1, per=3.0, type=commands.BucketType.user)
+        async def slot(ctx):
+            """ Roll the slot machine """
+            emojis = "🍎🍊🍐🍋🍉🍇🍓🍒"
+            a = random.choice(emojis)
+            b = random.choice(emojis)
+            c = random.choice(emojis)
+
+            slotmachine = f"**[ {a} {b} {c} ]\n{ctx.author.name}**,"
+
+            if (a == b == c):
+                await ctx.send(f"{slotmachine} All matching, you won! 🎉")
+            elif (a == b) or (a == c) or (b == c):
+                await ctx.send(f"{slotmachine} 2 in a row, you won! 🎉")
+            else:
+                await ctx.send(f"{slotmachine} No match, you lost 😢")
+
+
 def setup(bot):
     bot.add_cog(Fun(bot))
