@@ -68,6 +68,7 @@ class Fun(commands.Cog, name="fun"):
             timeout_embed = discord.Embed(title="Too late")
             timeout_embed.set_author(name=context.author.display_name, icon_url=context.author.avatar_url)
             await choose_message.edit(embed=timeout_embed)
+<<<<<<< HEAD
 
     @commands.command()
     async def beer(self, ctx, user: discord.Member = None, *, reason: commands.clean_content = ""):
@@ -119,5 +120,8 @@ class Fun(commands.Cog, name="fun"):
                 await context.send(f"{slotmachine} No match, you lost 😢")
 
 
+=======
+
+>>>>>>> parent of 2a97b46 (Update fun.py)
 def setup(bot):
     bot.add_cog(Fun(bot))
