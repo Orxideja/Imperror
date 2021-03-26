@@ -20,11 +20,6 @@ class Fun(commands.Cog, name="fun"):
 
     @commands.command(name="rps")
     async def rock_paper_scissors(self, context):
-        choices = {
-            0 : "rock",
-            1 : "paper",
-            2 : "scissors"
-        }
         reactions = {
             "🪨" : 0,
             "🧻" : 1,
@@ -117,6 +112,7 @@ class Fun(commands.Cog, name="fun"):
             await context.send(f"{slotmachine} 2 in a row, you won! 🎉")
         else:
             await context.send(f"{slotmachine} No match, you lost 😢")
+
 
 def setup(bot):
     bot.add_cog(Fun(bot))
