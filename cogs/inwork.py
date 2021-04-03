@@ -11,6 +11,10 @@ import asyncio
 from bs4 import BeautifulSoup as bs
 
 
+headers = {'accept': '*/*', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 YaBrowser/19.9.0.1343 Yowser/2.5 Safari/537.36'}
+base_url = 'https://pikabu.ru/community/steam'
+
+
 class inWork(commands.Cog, name="owner"):
     def __init__(self, bot):
         self.bot = bot
@@ -31,9 +35,9 @@ class inWork(commands.Cog, name="owner"):
 
 
     @commands.command(pass_context=True)
-    async def free(ctx):
-        channel = bot.get_channel(798093957938413589)
-        await ctx.message.delete()
+    async def free(self):
+        channel = self.get_channel(798093957938413589)
+        await self.message.delete()
         session = requests.Session()
         request = session.get(base_url, headers=headers)
         soup = bs(request.content, 'lxml')
