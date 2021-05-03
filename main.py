@@ -39,13 +39,12 @@ def timeNY():
     hh, mm = divmod(mm, 60)
     return ('{} дней {} часа {} мин {} сек.'.format(d.days, hh-3, mm, ss))
 
-headers = {'accept': '*/*',
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 YaBrowser/19.9.0.1343 Yowser/2.5 Safari/537.36'}
+headers = {'accept': '*/*', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 YaBrowser/19.9.0.1343 Yowser/2.5 Safari/537.36'}
 
 base_url = 'https://pikabu.ru/community/steam'
 
 
-@commands.command(pass_context=True)
+@bot.command(pass_context=True)
 async def free(ctx):
     channel = bot.get_channel(798093957938413589)
     await ctx.message.delete()
