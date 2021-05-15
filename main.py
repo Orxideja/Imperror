@@ -47,7 +47,6 @@ base_url = 'https://pikabu.ru/community/steam'
 
 @bot.command(pass_context=True)
 async def free(ctx):
-    channel = bot.get_channel(798093957938413589)
     await ctx.message.delete()
     session = requests.Session()
     request = session.get(base_url, headers=headers)
@@ -58,7 +57,7 @@ async def free(ctx):
     content_text = soup.find('div', attrs={'story-block story-block_type_text'}).text
     embed = discord.Embed(color=0x5B3375, description=title + "\n" + content_text + "\n" + href)
     embed.set_image(url=img)
-    await channel.send(embed=embed)
+    await ctx.send(embed=embed)
 
 
 @bot.event  #  Стримит...
