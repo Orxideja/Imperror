@@ -7,6 +7,7 @@ import random
 import datetime
 import asyncio
 from bs4 import BeautifulSoup as bs
+from asyncio import sleep
 
 
 intents = discord.Intents.default()
@@ -103,6 +104,12 @@ async def on_voice_state_update(member, before, after):
             # если нет пользователей - удаляем
             if not before.channel.members:
                 return await before.channel.delete()
+
+
+@bot.command(pass_context=True)
+async def reactionGetter(ctx, msg):
+    cache_msg = discord.utils.get(bot.cached_messages, id=msg.id) #or client.messages depending on your variable
+    print(cache_msg.reactions)
 
 
 @bot.event
