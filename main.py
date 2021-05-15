@@ -109,7 +109,7 @@ async def on_voice_state_update(member, before, after):
 @bot.command(pass_context=True)
 async def reactionGetter(ctx, msg):
     cache_msg = discord.utils.get(bot.cached_messages, id=msg.id) #or client.messages depending on your variable
-    print(cache_msg.reactions)
+    await ctx.send(cache_msg.reactions)
 
 
 @bot.event
