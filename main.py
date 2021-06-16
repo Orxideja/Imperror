@@ -60,6 +60,25 @@ async def free(ctx):
     await ctx.send(embed=embed)
 
 
+@bot.command(pass_context=True)
+async def post(ctx, base_url):
+    await ctx.message.delete()
+    session = requests.Session()
+    request = session.get(base_url, headers=headers)
+    soup = bs(request.content, 'lxml')
+    title = soup.find('h2', attrs={'story__title'}).text
+    href = soup.find('a', attrs={'story__title-link'})['href']
+    img = soup.find('img', attrs={'story-image__image'})['data-src']
+    content_text = soup.find('div', attrs={'story-block story-block_type_text'}).text
+    embed = discord.Embed(color=0x5B3375, description=title + "\n" + content_text + "\nИсточник: " + href)
+    embed.set_image(url=img)
+    await ctx.send(embed=embed)
+
+# @bot.command()
+# async def free_loop(ctx):
+#     bot.loop.create_task(free(ctx))  # Create loop/task
+
+
 @bot.event  #  Стримит...
 async def on_ready():
     while True:
@@ -115,8 +134,8 @@ async def reactionGetter(ctx, msg):
 async def on_command_error(ctx, error):
     author = ctx.message.author
     # if command has local error handler, return
-    if hasattr(ctx.command, 'on_error'):
-        return
+    # if hasattr(ctx.command, 'on_error'):
+    #     return
     if isinstance(error, commands.MissingPermissions):
         embed = discord.Embed(color=0x5B3375, description=f'{author.mention}, у тебя нет здесь власти!')
         await ctx.send(embed=embed)
