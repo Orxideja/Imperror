@@ -78,8 +78,8 @@ class general(commands.Cog, name="general"):
         await embed_message.add_reaction("👎")
         await embed_message.add_reaction("🤷")
 
-    @commands.command(name="8ball")
-    async def шар(self, context, *args):
+    @commands.command(name="шар")
+    async def шар(self, context, **args):
         responses = ["А ты как считаешь?",
                  "Определённо да",
                  "Конечно же нет",
@@ -104,7 +104,8 @@ class general(commands.Cog, name="general"):
                  'Говорю "да" только потому что ты хочешь это услышать',
                  "Может быть. А, может, и нет. А, может, пошёл ты"
                  ]
-        embed = discord.Embed(color=0x5B3375, description=f'{args} \n Ответ: {random.choice(responses)}')
+        embed = discord.Embed(color=0x5B3375, description=f'{args} \n '
+                                                          f'Ответ: {random.choice(responses)}')
         await context.send(embed=embed)
 
     @commands.command(name="embed")

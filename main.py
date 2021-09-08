@@ -14,7 +14,7 @@ intents = discord.Intents.default()
 intents.members = True
 
 settings = {
-    'bot': 'Легенда Посмертия',
+    'bot': 'Малюсенькая Чича',
     'id': 769829547159322624,
     'prefix': '%'
 }
@@ -58,21 +58,7 @@ async def free(ctx):
     embed = discord.Embed(color=0x5B3375, description=title + "\n" + content_text + "\n" + href)
     embed.set_image(url=img)
     await ctx.send(embed=embed)
-
-
-@bot.command(pass_context=True)
-async def post(ctx, base_url):
-    await ctx.message.delete()
-    session = requests.Session()
-    request = session.get(base_url, headers=headers)
-    soup = bs(request.content, 'lxml')
-    title = soup.find('h2', attrs={'story__title'}).text
-    href = soup.find('a', attrs={'story__title-link'})['href']
-    img = soup.find('img', attrs={'story-image__image'})['data-src']
-    content_text = soup.find('div', attrs={'story-block story-block_type_text'}).text
-    embed = discord.Embed(color=0x5B3375, description=title + "\n" + content_text + "\nИсточник: " + href)
-    embed.set_image(url=img)
-    await ctx.send(embed=embed)
+    
 
 # @bot.command()
 # async def free_loop(ctx):
