@@ -58,11 +58,6 @@ async def free(ctx):
     embed = discord.Embed(color=0x5B3375, description=title + "\n" + content_text + "\n" + href)
     embed.set_image(url=img)
     await ctx.send(embed=embed)
-    
-
-# @bot.command()
-# async def free_loop(ctx):
-#     bot.loop.create_task(free(ctx))  # Create loop/task
 
 
 @bot.event  #  Стримит...

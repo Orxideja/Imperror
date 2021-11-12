@@ -97,6 +97,32 @@ class Fun(commands.Cog, name="fun"):
             beer_offer = beer_offer + f"\n\n**Reason:** {reason}" if reason else beer_offer
             await msg.edit(content=beer_offer)
 
+    @commands.command(name="padoru")
+    async def padoru(self, context):
+        author = context.message.author
+        gifs = ['https://cdn.discordapp.com/attachments/770262193949507656/785177869139443722/tenor_1.gif',
+                'https://media.discordapp.net/attachments/738296780009111583/783760232253489172/1575476244_388.gif',
+                'https://cdn.discordapp.com/attachments/770262193949507656/785177871386673192/tenor_2.gif',
+                'https://cdn.discordapp.com/attachments/770262193949507656/785177861413142548/tenor_3.gif',
+                'https://cdn.discordapp.com/attachments/770262193949507656/785177875452133416/tenor_4.gif',
+                'https://cdn.discordapp.com/attachments/770262193949507656/785177872507600906/tenor_5.gif']
+
+        def timeNY():
+            now = datetime.datetime.today()
+            NY = datetime.datetime(2022, 1, 1)
+            d = NY - now
+            mm, ss = divmod(d.seconds, 60)
+            hh, mm = divmod(mm, 60)
+            return ('{} дней {} часа {} мин {} сек.'.format(d.days, hh - 3, mm, ss))
+
+        days = timeNY()
+        text = [f'С наступающим новым годом, {author.mention}!',
+                f'Уютного декабря и праздничного настроения, {author.mention}!',
+                f'Побольше снега и гирлянд тебе, {author.mention}']
+        embed = discord.Embed(color=0x5B3375, description=random.choice(text) + f'\n {days} until Padoru')
+        embed.set_image(url=random.choice(gifs))
+        await context.send(embed=embed)
+
     @commands.command(name="slot")
     async def slot(self, context):
         """ Roll the slot machine """
@@ -113,33 +139,6 @@ class Fun(commands.Cog, name="fun"):
             await context.send(f"{slotmachine} 2 in a row, you won! 🎉")
         else:
             await context.send(f"{slotmachine} No match, you lost 😢")
-
-
-
-    @commands.command(name="Команда поздравления")
-    async def padoru(self, context):
-        author = context.message.author
-        gifs = ['https://cdn.discordapp.com/attachments/770262193949507656/785177869139443722/tenor_1.gif',
-              'https://media.discordapp.net/attachments/738296780009111583/783760232253489172/1575476244_388.gif',
-              'https://cdn.discordapp.com/attachments/770262193949507656/785177871386673192/tenor_2.gif',
-              'https://cdn.discordapp.com/attachments/770262193949507656/785177861413142548/tenor_3.gif',
-              'https://cdn.discordapp.com/attachments/770262193949507656/785177875452133416/tenor_4.gif',
-              'https://cdn.discordapp.com/attachments/770262193949507656/785177872507600906/tenor_5.gif']
-        def timeNY():
-            now = datetime.datetime.today()
-            NY = datetime.datetime(2022, 1, 1)
-            d = NY - now
-            mm, ss = divmod(d.seconds, 60)
-            hh, mm = divmod(mm, 60)
-            return ('{} дней {} часа {} мин {} сек.'.format(d.days, hh - 3, mm, ss))
-        days = timeNY()
-        text = [f'С наступающим новым годом, {author.mention}!',
-                f'Уютного декабря и праздничного настроения, {author.mention}!',
-                f'Побольше снега и гирлянд тебе, {author.mention}']
-        embed = discord.Embed(color=0x5B3375, description=random.choice(text) + f'\n {days} until Padoru')
-        embed.set_image(url=random.choice(gifs))
-        await context.send(embed=embed)
-
 
 def setup(bot):
     bot.add_cog(Fun(bot))
