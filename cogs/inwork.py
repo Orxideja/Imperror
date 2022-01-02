@@ -151,36 +151,7 @@ class inWork(commands.Cog, name="owner"):
         await member.remove_roles(mute_role)
         await member.edit(deafen=False)
         await ctx.send(f'{member.mention} размьючен!')
-
-
-#  Часть с музыкой
-    @commands.command()
-    async def join(ctx):
-        global voice
-        channel = ctx.message.author.voice.channel
-        voice = ctx.get(commands.voice_clients, guild=ctx.guild)
-
-        if voice and voice.is_connected():
-            await voice.move_to(channel)
-        else:
-            voice = await channel.connect()
-            await ctx.send('успешно подключился')
-
-
-    @commands.command()
-    async def leave(ctx):
-        global voice
-        channel = ctx.message.author.voice.channel
-        voice = ctx.get(commands.voice_clients, guild=ctx.guild)
-
-        if voice and voice.is_connected():
-            await voice.disconnect()
-        else:
-            voice = await channel.disconnect()
-            await ctx.send('успешно отключился')
-
-
-
+        
 
 def setup(bot):
     bot.add_cog(inWork(bot))

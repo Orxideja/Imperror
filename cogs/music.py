@@ -1,6 +1,4 @@
-import os, sys, discord, random, asyncio
 from discord.ext import commands
-import datetime
 
 
 class Music(commands.Cog, name="music"):
@@ -30,3 +28,7 @@ class Music(commands.Cog, name="music"):
         else:
             voice = await channel.disconnect()
             await ctx.send('успешно отключился')
+
+
+def setup(bot):
+    bot.add_cog(Music(bot))
