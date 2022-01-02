@@ -179,12 +179,6 @@ class inWork(commands.Cog, name="owner"):
             voice = await channel.disconnect()
             await ctx.send('успешно отключился')
 
-    @commands.has_permissions(administrator=True)
-    @commands.command()
-    async def рассылка(role: discord.Role, *, message):
-        for member in role.members:
-            dm = member.create_dm
-            await dm.send(message)
 
 
 

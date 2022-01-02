@@ -1,4 +1,4 @@
-import os, sys, discord, random, asyncio
+import discord, random, asyncio
 from discord.ext import commands
 import datetime
 
