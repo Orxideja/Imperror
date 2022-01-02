@@ -19,38 +19,6 @@ class inWork(commands.Cog, name="owner"):
     def __init__(self, bot):
         self.bot = bot
 
-    def timeNY(self):
-        now = datetime.datetime.today()
-        NY = datetime.datetime(2022, 1, 1)
-        d = NY - now
-        mm, ss = divmod(d.seconds, 60)
-        hh, mm = divmod(mm, 60)
-        return ('{} дней {} часа {} мин {} сек.'.format(d.days, hh-3, mm, ss))
-
-
-
-        # loop = asyncio.get_event_loop()
-
-
-
-    # @bot.command(help='Команда поздравления')  # Не передаём аргумент pass_context, так как он был нужен в старых версиях.
-    # async def padoru(ctx):  # Создаём функцию и передаём аргумент ctx.
-    #     author = ctx.message.author  # Объявляем переменную author и записываем туда информацию об авторе.
-    #     gifs = ['https://cdn.discordapp.com/attachments/770262193949507656/785177869139443722/tenor_1.gif',
-    #           'https://media.discordapp.net/attachments/738296780009111583/783760232253489172/1575476244_388.gif',
-    #           'https://cdn.discordapp.com/attachments/770262193949507656/785177871386673192/tenor_2.gif',
-    #           'https://cdn.discordapp.com/attachments/770262193949507656/785177861413142548/tenor_3.gif',
-    #           'https://cdn.discordapp.com/attachments/770262193949507656/785177875452133416/tenor_4.gif',
-    #           'https://cdn.discordapp.com/attachments/770262193949507656/785177872507600906/tenor_5.gif']
-    #     days = timeNY()
-    #     text = [f'С наступающим новым годом, {author.mention}!',
-    #             f'Уютного декабря и праздничного настроения, {author.mention}!',
-    #             f'Побольше снега и гирлянд тебе, {author.mention}']
-    #     embed = discord.Embed(color=0x5B3375, description=random.choice(text) + f'\n {days} until Padoru')
-    #     embed.set_image(url=random.choice(gifs))
-    #     await ctx.send(embed=embed)
-
-
     @commands.command(help='Команда поиска картинки по слову')
     async def pic(ctx, keyword):
         author = ctx.message.author
@@ -59,7 +27,6 @@ class inWork(commands.Cog, name="owner"):
         embed = discord.Embed(color=0x5B3375)  # Создание Embed'a
         embed.set_image(url=response.url)  # Устанавливаем картинку Embed'a
         await ctx.send(embed=embed)  # Отправляем Embed
-
 
     @commands.command(help='Команда поиска рандомной картинки')
     async def randompic(ctx):
@@ -70,7 +37,6 @@ class inWork(commands.Cog, name="owner"):
         embed.set_image(url=response.url)  # Устанавливаем картинку Embed'a
         await ctx.send(embed=embed)  # Отправляем Embed
 
-
     @commands.command(help='адм.команда-добавление роли юзеру')
     @commands.has_permissions(administrator=True)
     async def addrole(ctx, user: discord.Member, role: discord.Role):
@@ -78,15 +44,12 @@ class inWork(commands.Cog, name="owner"):
         embed = discord.Embed(color=0x5B3375, description=f"Юзеру {user.mention} была выдана роль: {role.mention}")
         await ctx.send(embed=embed)
 
-
     @commands.command(help='адм.команда-удаление роли юзера')
     @commands.has_permissions(administrator=True)
     async def removerole(ctx, user: discord.Member, role: discord.Role):
         await user.remove_roles(role)
         embed = discord.Embed(color=0x5B3375, description=f"С юзера {user.mention} была снята роль: {role.mention}")
         await ctx.send(embed=embed)
-
-
 
     @commands.command()
     @commands.has_permissions(administrator=True)
@@ -99,7 +62,6 @@ class inWork(commands.Cog, name="owner"):
             embed = discord.Embed(color=0x5B3375, description='У тебя нет здесь власти!')
             await ctx.send(embed=embed)
 
-
     @commands.command(help='create-channel')
     async def create_channel(ctx):
         guild = ctx.guild
@@ -111,7 +73,6 @@ class inWork(commands.Cog, name="owner"):
             await ctx.send(embed=embed)
             await guild.create_voice_channel(channel_name)
 
-
     # Voice mute and unmute
     @commands.command()
     @commands.has_permissions(administrator=True)
@@ -122,7 +83,6 @@ class inWork(commands.Cog, name="owner"):
         await member.edit(mute=True, deafen=True)
         await ctx.send(f'{member.mention} получил мут за плохое поведение!')
 
-
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def unmutev(ctx, member: discord.Member):
@@ -131,7 +91,6 @@ class inWork(commands.Cog, name="owner"):
         await member.remove_roles(mute_role)
         await member.edit(mute=False, deafen=False)
         await ctx.send(f'{member.mention} размьючен!')
-
 
     @commands.command()
     @commands.has_permissions(administrator=True)
@@ -142,7 +101,6 @@ class inWork(commands.Cog, name="owner"):
         await member.edit(deafen=True)
         await ctx.send(f'{member.mention} получил мут за плохое поведение!')
 
-
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def unmutec(ctx, member: discord.Member):
@@ -151,7 +109,7 @@ class inWork(commands.Cog, name="owner"):
         await member.remove_roles(mute_role)
         await member.edit(deafen=False)
         await ctx.send(f'{member.mention} размьючен!')
-        
+
 
 def setup(bot):
     bot.add_cog(inWork(bot))
