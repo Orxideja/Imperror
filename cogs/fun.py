@@ -109,7 +109,7 @@ class Fun(commands.Cog, name="fun"):
 
         def timeNY():
             now = datetime.datetime.today()
-            NY = datetime.datetime(2022, 1, 1)
+            NY = datetime.datetime(2023, 1, 1)
             d = NY - now
             mm, ss = divmod(d.seconds, 60)
             hh, mm = divmod(mm, 60)
@@ -139,6 +139,7 @@ class Fun(commands.Cog, name="fun"):
             await context.send(f"{slotmachine} 2 in a row, you won! 🎉")
         else:
             await context.send(f"{slotmachine} No match, you lost 😢")
+
 
 def setup(bot):
     bot.add_cog(Fun(bot))
