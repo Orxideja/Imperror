@@ -13,7 +13,7 @@ discord.py==1.5.1
 fire==0.3.1
 idna==2.10
 isodate==0.6.0
-lxml==4.6.2
+lxml==4.6.5
 marshmallow==3.9.0
 marshmallow-enum==1.5.1
 multidict==4.7.6
