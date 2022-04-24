@@ -33,13 +33,6 @@ if __name__ == "__main__":
 				exception = f"{type(e).__name__}: {e}"
 				print(f"Failed to load extension {extension}\n{exception}")
 
-def timeNY():
-    now = datetime.datetime.today()
-    NY = datetime.datetime(2022, 1, 1)
-    d = NY - now
-    mm, ss = divmod(d.seconds, 60)
-    hh, mm = divmod(mm, 60)
-    return ('{} дней {} часа {} мин {} сек.'.format(d.days, hh-3, mm, ss))
 
 headers = {'accept': '*/*', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 YaBrowser/19.9.0.1343 Yowser/2.5 Safari/537.36'}
 
@@ -78,8 +71,7 @@ async def on_voice_state_update(member, before, after):
         if after.channel.id == make_channel_id:
             guild = member.guild  # достём guild
 
-            # достаём категорию, здесь нужно исправить, но я не помню что и как
-            # по итогу здесь должен быть объект категории
+
             category = discord.utils.get(guild.categories, id=category_id)
 
             # создаём канал в категории
@@ -112,75 +104,23 @@ async def reactionGetter(ctx, msg):
     await ctx.send(cache_msg.reactions)
 
 
-# Music part
-@bot.command(pass_context=True, brief="Makes the bot join your channel", aliases=['j', 'jo'])
-async def join(ctx):
-    channel = ctx.message.author.voice.channel
-    if not channel:
-        await ctx.send("You are not connected to a voice channel")
+@bot.event
+async def on_command_error(ctx, error):
+    author = ctx.message.author
+    # if command has local error handler, return
+    # if hasattr(ctx.command, 'on_error'):
+    #     return
+    if isinstance(error, commands.MissingPermissions):
+        embed = discord.Embed(color=0x5B3375, description=f'{author.mention}, у тебя нет здесь власти!')
+        await ctx.send(embed=embed)
         return
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    if voice and voice.is_connected():
-        await voice.move_to(channel)
-    else:
-        voice = await channel.connect()
-    await voice.disconnect()
-    if voice and voice.is_connected():
-        await voice.move_to(channel)
-    else:
-        voice = await channel.connect()
-    await ctx.send(f"Joined {channel}")
 
 
-@bot.command(pass_context=True, brief="This will play a song 'play [url]'", aliases=['pl'])
-async def play(ctx, url: str):
-    song_there = os.path.isfile("song.mp3")
-    try:
-        if song_there:
-            os.remove("song.mp3")
-    except PermissionError:
-        await ctx.send("Wait for the current playing music end or use the 'stop' command")
-        return
-    await ctx.send("Getting everything ready, playing audio soon")
-    print("Someone wants to play music let me get that ready for them...")
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    ydl_opts = {
-        'format': 'bestaudio/best',
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }],
-    }
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([url])
-    for file in os.listdir("./"):
-        if file.endswith(".mp3"):
-            os.rename(file, 'song.mp3')
-    voice.play(discord.FFmpegPCMAudio("song.mp3"))
-    voice.volume = 100
-    voice.is_playing()
-
-
-@bot.command(pass_context=True, brief="Makes the bot leave your channel", aliases=['l', 'le', 'lea'])
-async def leave(ctx):
-    channel = ctx.message.author.voice.channel
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    if voice and voice.is_connected():
-        await voice.disconnect()
-        await ctx.send(f"Left {channel}")
-    else:
-        await ctx.send("Don't think I am in a voice channel")
-
-# @bot.event
-# async def on_command_error(ctx, error):
-#     author = ctx.message.author
-#     # if command has local error handler, return
-#     # if hasattr(ctx.command, 'on_error'):
-#     #     return
-#     if isinstance(error, commands.MissingPermissions):
-#         embed = discord.Embed(color=0x5B3375, description=f'{author.mention}, у тебя нет здесь власти!')
-#         await ctx.send(embed=embed)
-#         return
+@bot.event
+async def on_message(message):
+    channels = (797841049707479142, 805759773944315905, 805759934167515196)
+    if message.channel in channels:
+        for x in (967697970973802507, 967697970973802507, 967697470324895774, 967697475915878420, 967697487483797555, 967697505255055402):
+            return await bot.add_reaction(message, x)
 
 bot.run(TOKEN)  # Обращаемся к словарю settings с ключом token, для получения токена

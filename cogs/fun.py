@@ -65,6 +65,7 @@ class Fun(commands.Cog, name="fun"):
             timeout_embed.set_author(name=context.author.display_name, icon_url=context.author.avatar_url)
             await choose_message.edit(embed=timeout_embed)
 
+
     @commands.command(name="beer")
     async def beer(self, ctx, user: discord.Member = None, *, reason: commands.clean_content = ""):
         """ Give someone a beer! 🍻 """

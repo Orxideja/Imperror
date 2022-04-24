@@ -62,21 +62,6 @@ class general(commands.Cog, name="general"):
         author = context.message.author  # Объявляем переменную author и записываем туда информацию об авторе.
         await context.send(f'Кукусики, {author.mention}!')  # Выводим сообщение с упоминанием автора, обращаясь к переменной author.
 
-    @commands.command(name="poll")
-    async def poll(self, context, *args):
-        """
-        Create a poll where members can vote.
-        """
-        embed = discord.Embed(
-            title=args
-        )
-        embed.set_footer(
-            text=f"Голосование создано: {context.message.author} • Жмякайте реакцию!"
-        )
-        embed_message = await context.send(embed=embed)
-        await embed_message.add_reaction("👍")
-        await embed_message.add_reaction("👎")
-        await embed_message.add_reaction("🤷")
 
     @commands.command(name="шар")
     async def шар(self, context, **args):
