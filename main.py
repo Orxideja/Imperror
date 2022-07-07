@@ -60,8 +60,8 @@ async def on_ready():
         steam = discord.Streaming(name="Your Tsukuyomi", url="https://www.twitch.tv/yourtsukuyomi")
         await bot.change_presence(status=discord.Status.online, activity=steam)
 
-category_id = 797843720690860032  # id категории
-make_channel_id = 797843749585551371  # id канала, для создания временных каналов
+category_id = 994453005707526196  # id категории
+make_channel_id = 994464863592132689  # id канала, для создания временных каналов
 temp = []
 
 
@@ -118,7 +118,7 @@ async def on_command_error(ctx, error):
 
 @bot.event
 async def on_message(message):
-    channels = (797841049707479142, 805759773944315905, 805759934167515196)
+    channels = (797841049707479142, 805759773944315905, 805759934167515196, 994460630956376164, 994460954848931901, 994461134717452288, 994461220105093181)
     if message.channel in channels:
         for x in (967697970973802507, 967697970973802507, 967697470324895774, 967697475915878420, 967697487483797555, 967697505255055402):
             return await bot.add_reaction(message, x)
