@@ -7,7 +7,7 @@ class Fun(commands.Cog, name="fun"):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="dick")
+    @slash_command(name="dick")
     async def dick(self, context, member: discord.Member = None):
         """
         Get the dick's length of a user or yourself.

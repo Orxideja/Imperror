@@ -20,7 +20,7 @@ settings = {
     'prefix': '%'
 }
 bot = commands.Bot(command_prefix=settings['prefix'], intents=intents, case_insensitive=True)
-TOKEN = os.getenv('TOKEN')
+TOKEN = 'NzY5ODI5NTQ3MTU5MzIyNjI0.GTmWok.I1w-2wgqQRPTyeEmWdMAzPajZsYsaPvo28IFQ4'
 
 if __name__ == "__main__":
 	for file in os.listdir("./cogs"):
@@ -54,11 +54,11 @@ async def free(ctx):
     await ctx.send(embed=embed)
 
 
-@bot.event  #  Стримит...
-async def on_ready():
-    while True:
-        steam = discord.Streaming(name="Your Tsukuyomi", url="https://www.twitch.tv/yourtsukuyomi")
-        await bot.change_presence(status=discord.Status.online, activity=steam)
+# @bot.event  #  Стримит...
+# async def on_ready():
+#     while True:
+#         steam = discord.Streaming(name="Your Tsukuyomi", url="https://www.twitch.tv/yourtsukuyomi")
+#         await bot.change_presence(status=discord.Status.online, activity=steam)
 
 category_id = 994453005707526196  # id категории
 make_channel_id = 994464863592132689  # id канала, для создания временных каналов
@@ -104,16 +104,16 @@ async def reactionGetter(ctx, msg):
     await ctx.send(cache_msg.reactions)
 
 
-@bot.event
-async def on_command_error(ctx, error):
-    author = ctx.message.author
-    # if command has local error handler, return
-    # if hasattr(ctx.command, 'on_error'):
-    #     return
-    if isinstance(error, commands.MissingPermissions):
-        embed = discord.Embed(color=0x5B3375, description=f'{author.mention}, у тебя нет здесь власти!')
-        await ctx.send(embed=embed)
-        return
+# @bot.event
+# async def on_command_error(ctx, error):
+#     author = ctx.message.author
+#     # if command has local error handler, return
+#     # if hasattr(ctx.command, 'on_error'):
+#     #     return
+#     if isinstance(error, commands.MissingPermissions):
+#         embed = discord.Embed(color=0x5B3375, description=f'{author.mention}, у тебя нет здесь власти!')
+#         await ctx.send(embed=embed)
+#         return
 
 
 @bot.event
